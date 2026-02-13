@@ -3,7 +3,11 @@
     "name": "congregationhub/website",
     "type": "project",
     "description": "Public-facing church website that renders pages from Congregation Hub API.",
-    "keywords": ["congregationhub", "church", "website"],
+    "keywords": [
+        "congregationhub",
+        "church",
+        "website"
+    ],
     "license": "proprietary",
     "require": {
         "php": "^8.2",
@@ -29,7 +33,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../congregationhub/congregationhub-themes-blade"
+            "url": "../congregationhub-themes-blade"
         }
     ],
     "scripts": {

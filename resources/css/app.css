@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: corporate --default, dim --prefersdark;
+}
+
+@source "../views";
+@source "../../vendor/congregationhub/themes/resources/views";

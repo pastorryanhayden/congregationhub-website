@@ -37,6 +37,8 @@ class DataTransformer
             'ministry-detail' => ['ministry', $this->transformMinistry($data)],
             'blog-post' => ['blog-post', $this->transformBlogPost($data)],
             'contact' => ['location', $this->transformContact($data)],
+            'events' => ['events', $this->transformEvents($data)],
+            'event' => ['event', $this->transformEventDetail($data)],
             default => ['custom-page', $this->transformCustomPage($data)],
         };
     }
@@ -69,6 +71,9 @@ class DataTransformer
 
             // Nav booleans derived from navItems
             ...$this->navBooleans($navItems),
+
+            // Document links for external documents
+            'documentLinks' => $data['documentLinks'] ?? [],
         ];
     }
 
@@ -249,6 +254,34 @@ class DataTransformer
     {
         return array_merge($this->baseProps($data), [
             'siteTitle' => $data['siteTitle'] ?? 'Contact',
+        ]);
+    }
+
+    protected function transformEvents(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Events',
+            'currentMonth' => $data['currentMonth'] ?? '',
+            'currentYear' => $data['currentYear'] ?? now()->year,
+            'currentMonthNum' => $data['currentMonthNum'] ?? now()->month,
+            'prevMonth' => $data['prevMonth'] ?? [],
+            'nextMonth' => $data['nextMonth'] ?? [],
+            'calendarDays' => $data['calendarDays'] ?? [],
+            'upcomingEvents' => $data['upcomingEvents'] ?? [],
+        ]);
+    }
+
+    protected function transformEventDetail(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Event',
+            'eventTitle' => $data['pageTitle'] ?? 'Event',
+            'eventDate' => $data['eventDate'] ?? '',
+            'eventDescription' => $data['eventDescription'] ?? '',
+            'eventContent' => $data['eventContent'] ?? '',
+            'eventLocation' => $data['eventLocation'] ?? null,
+            'eventImage' => $data['eventImage'] ?? null,
+            'eventAllDay' => $data['eventAllDay'] ?? false,
         ]);
     }
 

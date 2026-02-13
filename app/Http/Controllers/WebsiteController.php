@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\CongregationHubApi;
 use App\Support\DataTransformer;
+use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
 {
@@ -21,9 +22,10 @@ class WebsiteController extends Controller
         return $this->render("themes::pages.{$theme}.home", $viewData);
     }
 
-    public function page(string $path)
+    public function page(Request $request, string $path)
     {
-        $data = $this->api->page($path);
+        $query = $request->only(['year', 'month']);
+        $data = $this->api->page($path, $query);
         $status = $data['_status'] ?? 200;
         $template = $data['_template'] ?? 'page';
         $theme = $data['theme']['name'] ?? config('website.theme');

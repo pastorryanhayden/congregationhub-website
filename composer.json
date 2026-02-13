@@ -33,7 +33,10 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../congregationhub-themes-blade"
+            "url": "../congregationhub-themes-blade",
+            "options": {
+                "symlink": true
+            }
         }
     ],
     "scripts": {

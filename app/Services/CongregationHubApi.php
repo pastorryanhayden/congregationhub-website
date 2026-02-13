@@ -27,10 +27,15 @@ class CongregationHubApi
         });
     }
 
-    public function page(string $slug): array
+    public function page(string $slug, array $query = []): array
     {
-        return $this->cached("website:page:{$slug}", function () use ($slug) {
-            return $this->get('/api/website/pages/'.$slug);
+        $cacheKey = "website:page:{$slug}";
+        if (! empty($query)) {
+            $cacheKey .= ':'.md5(http_build_query($query));
+        }
+
+        return $this->cached($cacheKey, function () use ($slug, $query) {
+            return $this->get('/api/website/pages/'.$slug, $query);
         });
     }
 
@@ -39,11 +44,11 @@ class CongregationHubApi
         Cache::flush();
     }
 
-    protected function get(string $path): array
+    protected function get(string $path, array $query = []): array
     {
         $response = Http::withToken($this->token)
             ->timeout(10)
-            ->get($this->baseUrl.$path);
+            ->get($this->baseUrl.$path, $query);
 
         if ($response->failed()) {
             abort($response->status(), 'API request failed');

@@ -24,7 +24,7 @@ class WebsiteController extends Controller
 
     public function page(Request $request, string $path)
     {
-        $query = $request->only(['year', 'month']);
+        $query = $request->only(['year', 'month', 'search', 'speaker', 'series', 'book', 'page']);
         $data = $this->api->page($path, $query);
         $status = $data['_status'] ?? 200;
         $template = $data['_template'] ?? 'page';

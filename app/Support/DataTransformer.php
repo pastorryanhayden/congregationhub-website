@@ -40,6 +40,12 @@ class DataTransformer
             'contact' => ['location', $this->transformContact($data)],
             'events' => ['events', $this->transformEvents($data)],
             'event' => ['event', $this->transformEventDetail($data)],
+            'sermons' => ['sermons', $this->transformSermons($data)],
+            'sermon-detail' => ['sermon', $this->transformSermonDetail($data)],
+            'series-list' => ['series-list', $this->transformSeriesList($data)],
+            'series-detail' => ['series', $this->transformSeriesDetail($data)],
+            'speakers-list' => ['speakers', $this->transformSpeakersList($data)],
+            'speaker-detail' => ['speaker', $this->transformSpeakerDetail($data)],
             default => ['custom-page', $this->transformCustomPage($data)],
         };
     }
@@ -302,6 +308,67 @@ class DataTransformer
             'customPageTitle' => $data['pageTitle'] ?? 'Page',
             'customPageImage' => $data['featuredImage'] ?? $data['image'] ?? null,
             'customPageContent' => $data['pageContent'] ?? '',
+        ]);
+    }
+
+    protected function transformSermons(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Sermons',
+            'pageTitle' => $data['pageTitle'] ?? 'Sermons',
+            'sermons' => $data['sermons'] ?? [],
+            'pagination' => $data['pagination'] ?? [],
+            'featuredSeries' => $data['featuredSeries'] ?? [],
+            'filters' => $data['filters'] ?? [],
+            'activeFilters' => $data['activeFilters'] ?? [],
+        ]);
+    }
+
+    protected function transformSermonDetail(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Sermon',
+            'sermon' => $data['sermon'] ?? [],
+            'relatedSermons' => $data['relatedSermons'] ?? [],
+        ]);
+    }
+
+    protected function transformSeriesList(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Sermon Series',
+            'pageTitle' => $data['pageTitle'] ?? 'Sermon Series',
+            'series' => $data['series'] ?? [],
+        ]);
+    }
+
+    protected function transformSeriesDetail(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Series',
+            'series' => $data['series'] ?? [],
+            'sermons' => $data['sermons'] ?? [],
+        ]);
+    }
+
+    protected function transformSpeakersList(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Speakers',
+            'pageTitle' => $data['pageTitle'] ?? 'Speakers',
+            'speakers' => $data['speakers'] ?? [],
+        ]);
+    }
+
+    protected function transformSpeakerDetail(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Speaker',
+            'speaker' => $data['speaker'] ?? [],
+            'sermons' => $data['sermons'] ?? [],
+            'pagination' => $data['pagination'] ?? [],
+            'filters' => $data['filters'] ?? [],
+            'activeFilters' => $data['activeFilters'] ?? [],
         ]);
     }
 }

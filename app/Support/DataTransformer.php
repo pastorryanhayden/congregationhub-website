@@ -34,6 +34,7 @@ class DataTransformer
             'about' => ['about', $this->transformAbout($data)],
             'leadership' => ['leadership', $this->transformLeadership($data)],
             'content-page' => $this->resolveContentPage($path, $data),
+            'ministries' => ['ministries', $this->transformMinistries($data)],
             'ministry-detail' => ['ministry', $this->transformMinistry($data)],
             'blog-post' => ['blog-post', $this->transformBlogPost($data)],
             'contact' => ['location', $this->transformContact($data)],
@@ -226,6 +227,15 @@ class DataTransformer
             'customPageTitle' => $title,
             'customPageContent' => $content,
         ])];
+    }
+
+    protected function transformMinistries(array $data): array
+    {
+        return array_merge($this->baseProps($data), [
+            'siteTitle' => $data['siteTitle'] ?? 'Ministries',
+            'pageTitle' => $data['pageTitle'] ?? 'Our Ministries',
+            'ministries' => $data['ministries'] ?? [],
+        ]);
     }
 
     protected function transformMinistry(array $data): array

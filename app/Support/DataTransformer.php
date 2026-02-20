@@ -62,7 +62,8 @@ class DataTransformer
             // Site info
             'siteName' => $data['siteName'] ?? 'Your Church',
             'siteTitle' => $data['siteTitle'] ?? $data['siteName'] ?? 'Your Church',
-            'navLogo' => $data['navLogo'] ?? null,
+            'navLogoLight' => $data['navLogoLight'] ?? null,
+            'navLogoDark' => $data['navLogoDark'] ?? null,
 
             // Footer flattened
             'footerAbout' => $footer['about'] ?? '',

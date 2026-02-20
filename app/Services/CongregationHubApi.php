@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Support\ChurchContext;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -9,15 +10,15 @@ class CongregationHubApi
 {
     protected string $baseUrl;
 
-    protected string $token;
-
     protected int $cacheTtl;
 
-    public function __construct()
+    protected ChurchContext $church;
+
+    public function __construct(ChurchContext $church)
     {
         $this->baseUrl = rtrim(config('website.api_url'), '/');
-        $this->token = config('website.api_token');
         $this->cacheTtl = config('website.cache_ttl');
+        $this->church = $church;
     }
 
     public function homepage(): array
@@ -41,14 +42,21 @@ class CongregationHubApi
 
     public function clearCache(): void
     {
-        Cache::flush();
+        // Increment version — all old cache keys become stale and expire via TTL
+        Cache::increment($this->church->cachePrefix().':version');
     }
 
     protected function get(string $path, array $query = []): array
     {
-        $response = Http::withToken($this->token)
-            ->timeout(10)
-            ->get($this->baseUrl.$path, $query);
+        $http = Http::timeout(10);
+
+        if ($this->church->token) {
+            $http = $http->withToken($this->church->token);
+        } else {
+            $http = $http->withHeaders(['X-Church-Domain' => $this->church->domain]);
+        }
+
+        $response = $http->get($this->baseUrl.$path, $query);
 
         if ($response->failed()) {
             abort($response->status(), 'API request failed');
@@ -63,6 +71,11 @@ class CongregationHubApi
             return $callback();
         }
 
-        return Cache::remember($key, $this->cacheTtl, $callback);
+        // Prefix cache key with church identifier and version for scoped invalidation
+        $prefix = $this->church->cachePrefix();
+        $version = Cache::get($prefix.':version', 1);
+        $versionedKey = $prefix.':'.$key.':v'.$version;
+
+        return Cache::remember($versionedKey, $this->cacheTtl, $callback);
     }
 }

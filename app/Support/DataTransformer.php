@@ -77,7 +77,8 @@ class DataTransformer
             'youtubeUrl' => $footer['social']['youtube'] ?? null,
             'instagramUrl' => $footer['social']['instagram'] ?? null,
 
-            // Nav booleans derived from navItems
+            // Navigation
+            'navItems' => $navItems,
             ...$this->navBooleans($navItems),
 
             // Document links for external documents

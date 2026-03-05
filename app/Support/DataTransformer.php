@@ -76,6 +76,7 @@ class DataTransformer
             'facebookUrl' => $footer['social']['facebook'] ?? null,
             'youtubeUrl' => $footer['social']['youtube'] ?? null,
             'instagramUrl' => $footer['social']['instagram'] ?? null,
+            'usefulLinks' => $footer['usefulLinks'] ?? [],
 
             // Navigation
             'navItems' => $navItems,

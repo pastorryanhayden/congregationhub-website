@@ -169,6 +169,7 @@ class DataTransformer
         $sections = collect($data['sections'] ?? [])->map(function ($section) {
             return array_merge($section, [
                 'title' => $section['heading'] ?? $section['title'] ?? '',
+                'section_heading' => $section['section_heading'] ?? $section['heading'] ?? '',
             ]);
         })->toArray();
 

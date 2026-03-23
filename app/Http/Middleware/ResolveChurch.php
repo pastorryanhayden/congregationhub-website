@@ -19,6 +19,7 @@ class ResolveChurch
         } else {
             // Multi-tenant mode: use request Host
             $host = strtolower($request->getHost());
+            $host = preg_replace('/^www\./i', '', $host);
             $context = new ChurchContext(domain: $host);
         }
 

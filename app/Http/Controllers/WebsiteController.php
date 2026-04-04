@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\CongregationHubApi;
 use App\Support\DataTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class WebsiteController extends Controller
 {
@@ -16,6 +17,7 @@ class WebsiteController extends Controller
     public function home()
     {
         $data = $this->api->homepage();
+        App::setLocale($data['locale'] ?? 'en');
         $viewData = $this->transformer->transformHomepage($data);
         $theme = $data['theme']['name'] ?? config('website.theme');
 
@@ -26,6 +28,7 @@ class WebsiteController extends Controller
     {
         $query = $request->only(['year', 'month', 'search', 'speaker', 'series', 'book', 'page']);
         $data = $this->api->page($path, $query);
+        App::setLocale($data['locale'] ?? 'en');
         $status = $data['_status'] ?? 200;
         $template = $data['_template'] ?? 'page';
         $theme = $data['theme']['name'] ?? config('website.theme');

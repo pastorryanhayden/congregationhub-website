@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "R53X844C48.com.congregationhub.app",
+        "paths": ["/notifications/*"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handleAllURIs"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.congregationhub.app",
+      "sha256_cert_fingerprints": ["FINGERPRINT1", "FINGERPRINT2"]
+    }
+  }
+]

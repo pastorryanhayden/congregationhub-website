@@ -14,15 +14,15 @@
     margin-left: auto;
     width: max-content;
     max-width: 100%;
-    min-height: 3rem;
+    min-height: 3.75rem;
     cursor: pointer;
 }
 .website-chat-launcher-icon {
     display: grid;
     place-items: center;
-    width: 3rem;
-    height: 3rem;
-    flex: 0 0 3rem;
+    width: 3.75rem;
+    height: 3.75rem;
+    flex: 0 0 3.75rem;
 }
 .website-chat-launcher-label {
     max-width: 0;

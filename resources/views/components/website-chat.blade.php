@@ -25,7 +25,7 @@
     </section>
     <button type="button" data-website-chat-target="launcher" data-action="website-chat#toggle" aria-controls="church-chat-panel" aria-expanded="false"
             class="website-chat-launcher bg-base-100 text-base-content border border-base-300 shadow-lg rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-base-content">
-        <span aria-hidden="true" class="website-chat-launcher-icon text-xl font-semibold">?</span>
+        <span aria-hidden="true" class="website-chat-launcher-icon text-2xl font-semibold">?</span>
         <span aria-hidden="true" data-website-chat-target="launcherLabel" class="website-chat-launcher-label text-sm font-medium"></span>
     </button>
 </div>

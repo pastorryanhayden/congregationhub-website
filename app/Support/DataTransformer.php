@@ -36,6 +36,11 @@ class DataTransformer
             'content-page' => $this->resolveContentPage($path, $data),
             'ministries' => ['ministries', $this->transformMinistries($data)],
             'ministry-detail' => ['ministry', $this->transformMinistry($data)],
+            'blog' => ['blog', array_merge($this->baseProps($data), [
+                'siteTitle' => $data['siteTitle'] ?? 'Blog',
+                'pageTitle' => $data['pageTitle'] ?? 'Blog',
+                'posts' => $data['posts'] ?? [],
+            ])],
             'blog-post' => ['blog-post', $this->transformBlogPost($data)],
             'contact' => ['location', $this->transformContact($data)],
             'events' => ['events', $this->transformEvents($data)],

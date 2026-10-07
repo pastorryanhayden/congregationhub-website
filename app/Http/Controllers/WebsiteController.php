@@ -33,6 +33,13 @@ class WebsiteController extends Controller
         $template = $data['_template'] ?? 'page';
         $theme = $data['theme']['name'] ?? config('website.theme');
 
+        if ($status === 200 && $template === 'content-page' && ! empty($data['useDocument']) && ! empty($data['documentUrl'])) {
+            $documentUrl = $data['documentUrl'];
+            if (filter_var($documentUrl, FILTER_VALIDATE_URL) && in_array(strtolower(parse_url($documentUrl, PHP_URL_SCHEME) ?? ''), ['http', 'https'], true)) {
+                return redirect()->away($documentUrl);
+            }
+        }
+
         [$viewName, $viewData] = $this->transformer->transformPage($template, $path, $data);
 
         return $this->render("themes::pages.{$theme}.{$viewName}", $viewData, $status);

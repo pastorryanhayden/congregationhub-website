@@ -32,4 +32,7 @@ Route::post('/api/clear-cache', function (Request $request) {
     return response()->json(['ok' => true]);
 });
 
+Route::get('/chat/status', [\App\Http\Controllers\ChatController::class, 'index'])->middleware('throttle:60,1');
+Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'store'])->middleware('throttle:10,1');
+
 Route::get('/{path}', [WebsiteController::class, 'page'])->where('path', '.*');

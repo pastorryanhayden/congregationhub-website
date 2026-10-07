@@ -23,7 +23,7 @@ class ChatController extends Controller
     private function forward(ChurchContext $church, string $method, string $path, array $data = [])
     {
         try {
-            $http = Http::acceptJson()->connectTimeout(5)->timeout(50);
+            $http = Http::acceptJson()->connectTimeout(5)->timeout(90);
             $http = $church->token ? $http->withToken($church->token) : $http->withHeaders(['X-Church-Domain' => $church->domain]);
             $url = rtrim(config('website.api_url'), '/').'/api/website'.$path;
             $r = $method === 'GET' ? $http->get($url) : $http->post($url, $data);

@@ -7,3 +7,43 @@
 
 @source "../views";
 @source "../../vendor/congregationhub/themes/resources/views";
+
+.website-chat-launcher {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    width: max-content;
+    max-width: 100%;
+    min-height: 3rem;
+    cursor: pointer;
+}
+.website-chat-launcher-icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 3rem;
+}
+.website-chat-launcher-label {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: max-width 180ms ease, opacity 180ms ease, padding 180ms ease;
+}
+.website-chat-launcher:focus-visible .website-chat-launcher-label {
+    max-width: min(22rem, calc(100vw - 6rem));
+    padding-right: 1rem;
+    opacity: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+    .website-chat-launcher:hover .website-chat-launcher-label {
+        max-width: min(22rem, calc(100vw - 6rem));
+        padding-right: 1rem;
+        opacity: 1;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .website-chat-launcher-label { transition: none; }
+}

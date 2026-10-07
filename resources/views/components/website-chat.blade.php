@@ -2,7 +2,7 @@
      data-website-chat-prompt-value="{{ __('chatbot.prompt') }}"
      data-website-chat-error-value="{{ __('chatbot.unavailable_now') }}"
      data-website-chat-thinking-value="{{ __('chatbot.thinking') }}"
-     class="fixed bottom-4 right-4 z-50 max-w-[calc(100vw-2rem)]">
+     class="fixed bottom-4 right-4 z-50 max-w-[calc(100vw-2rem)] bg-transparent">
     <section hidden id="church-chat-panel" aria-label="{{ __('chatbot.title') }}" data-website-chat-target="panel"
              class="card bg-base-100 text-base-content shadow-xl border border-base-300 w-96 max-w-full mb-3 max-h-[calc(100dvh-6rem)] overflow-y-auto">
         <div class="card-body p-4 gap-3">
@@ -23,5 +23,9 @@
             </form>
         </div>
     </section>
-    <button type="button" data-website-chat-target="launcher" data-action="website-chat#toggle" aria-controls="church-chat-panel" aria-expanded="false" class="btn btn-primary shadow-lg whitespace-normal h-auto min-h-12 py-3 max-w-full"></button>
+    <button type="button" data-website-chat-target="launcher" data-action="website-chat#toggle" aria-controls="church-chat-panel" aria-expanded="false"
+            class="website-chat-launcher bg-base-100 text-base-content border border-base-300 shadow-lg rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-base-content">
+        <span aria-hidden="true" class="website-chat-launcher-icon text-xl font-semibold">?</span>
+        <span aria-hidden="true" data-website-chat-target="launcherLabel" class="website-chat-launcher-label text-sm font-medium"></span>
+    </button>
 </div>

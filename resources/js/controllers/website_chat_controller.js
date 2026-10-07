@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['launcher', 'panel', 'messages', 'question', 'send', 'notice'];
+    static targets = ['launcher', 'launcherLabel', 'panel', 'messages', 'question', 'send', 'notice'];
     static values = { prompt: String, error: String, thinking: String };
 
     async connect() {
@@ -13,7 +13,9 @@ export default class extends Controller {
             if (!response.ok) return;
             const status = await response.json();
             if (!status.enabled || !this.element.isConnected) return;
-            this.launcherTarget.textContent = this.promptValue.replace(':church', status.name);
+            const prompt = this.promptValue.replace(':church', status.name);
+            this.launcherLabelTarget.textContent = prompt;
+            this.launcherTarget.setAttribute('aria-label', prompt);
             this.element.hidden = false;
             // Only store display history in this tab; it is never included in model instructions.
             try {
